@@ -21,8 +21,10 @@ namespace BeeHiveManagement
     public partial class MainWindow : Window
     {
         public MainWindow()
-        {
+        {   Queen queen = new Queen();
             InitializeComponent();
+            
+
         }
     }
 }
