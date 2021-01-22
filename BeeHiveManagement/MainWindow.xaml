@@ -20,15 +20,15 @@
 
         <Label Content="Job Assignment" HorizontalAlignment="Center" FontWeight="Bold"/>
         <StackPanel Grid.Row="1" Margin="20">
-        <ComboBox x:Name="jobComboBox">
+        <ComboBox x:Name="jobComboBox" >
                 <ListBoxItem Content="Nectar Collector"/>
                 <ListBoxItem Content="Honey Manufacturer"/>
-                <ListBoxItem Content="Egg care"/>
+                <ListBoxItem Content="Egg Care"/>
 
             </ComboBox>
-            <Button x:Name="assignJobButton" Content="Assign this job to a bee" Margin="0,20"/>
+            <Button x:Name="assignJobButton" Content="Assign this job to a bee" Margin="0,20" Click="assignJobButton_Click"/>
         </StackPanel>
-        <Button x:Name="nextShiftButton" Content="Work the next shift" Grid.Row="2" Margin="20"/>
+        <Button x:Name="nextShiftButton" Content="Work the next shift" Grid.Row="2" Margin="20" Click="nextShiftButton_Click"/>
 
 
 

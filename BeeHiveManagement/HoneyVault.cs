@@ -8,6 +8,9 @@ namespace BeeHiveManagement
     {
         const float NECTAR_CONVERSION_RATIO = .19f;
         const float LOW_LEVEL_WARNING = 10f;
+        //Um... how can they be both private and static
+        static private float honey = 2500f;
+        static private float nectar = 100f;
         public static string StatusReport { get {
                  StringBuilder reportMessage = new StringBuilder();
                 reportMessage.Append($"There is {honey:0.0} honey & \n{nectar:0.0} nectar in the vault");
@@ -25,9 +28,7 @@ namespace BeeHiveManagement
                 return reportMessage.ToString();
             } }
 
-        //Um... how can they be both private and static
-        static public float honey = 25f;
-        static public float nectar = 100f;
+
         /// <summary>
         /// converts nectar to honey. It takes a float parameter called amount, subtracts that amount from 
         /// its nectar field, and adds amount × NECTAR_CONVERSION_RATIO to the honey field. 
@@ -36,33 +37,40 @@ namespace BeeHiveManagement
         /// <param name="amount">The amount of nectar to be converted</param>
         public static void ConvertNectarToHoney(float amount)
         {
-            if (amount <= nectar) { 
+            float nectarToConvert = amount;
+            if (nectarToConvert > nectar) nectarToConvert = nectar;
+            nectar -= nectarToConvert;
+            honey += nectarToConvert * NECTAR_CONVERSION_RATIO;
+
+            /*if (amount <= nectar) { 
             nectar -= amount;
             honey += (amount * NECTAR_CONVERSION_RATIO);
             }
             else
             {
                 honey += (nectar * NECTAR_CONVERSION_RATIO);
+            //Here's where I went wrong, I reseted nectar across the whole program.
                 nectar = 0;
-            }
+            }*/
         }
         //Note you've flipped the order from the book.
-        public static bool ConsumeHoney(float consumedAmount)
+        public static bool ConsumeHoney(float consumedAmount )
         {
             if (honey >= consumedAmount)
             {
                 honey -= consumedAmount;
                 return true;
             }
-            else
-                return false;
+            return false;
         }
 
-        public static void CollectNectar(float collectedAmount)
+        public static void CollectNectar(float collectedAmount, NectarCollector nectarCollector)
         {
-            if (collectedAmount > 0f)
+            if (collectedAmount > 0.0f)
             {
                 nectar += collectedAmount;
+                nectarCollector.collectedNectar += collectedAmount;
+                
             }
         }
 
