@@ -9,11 +9,11 @@ namespace BeeHiveManagement
         const float NECTAR_CONVERSION_RATIO = .19f;
         const float LOW_LEVEL_WARNING = 10f;
         //Um... how can they be both private and static
-        static private float honey = 2500f;
+        static private float honey = 25f;
         static private float nectar = 100f;
         public static string StatusReport { get {
                  StringBuilder reportMessage = new StringBuilder();
-                reportMessage.Append($"There is {honey:0.0} honey & \n{nectar:0.0} nectar in the vault");
+                reportMessage.Append($"There is {honey:0.00} honey & \n{nectar:0.00} nectar in the vault");
                 if (honey < LOW_LEVEL_WARNING)
                     reportMessage.Append("\nLow Honey - Add a honey manufacturer");
                 if (nectar < LOW_LEVEL_WARNING)

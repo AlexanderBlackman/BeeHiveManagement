@@ -8,14 +8,14 @@ namespace BeeHiveManagement
     {
         public Queen() : base("Queen")
         {
-            AssignBee("Nectar Collector");
-            AssignBee("Honey Manufacturer");
+          AssignBee("Nectar Collector");
+           AssignBee("Honey Manufacturer");
             AssignBee("Egg Care");
         }
         public override float CostPerShift { get { return 2.15f; } }
 
         private float eggs = 0;
-        private float unassignedWorkers = 10;
+        private float unassignedWorkers = 3;
         private const float EGGS_PER_SHIFT = 0.45f;
         private const float HONEY_PER_UNASSIGNED_WORKER = 0.5f;
         public string StatusReport { get; private set; }
@@ -72,7 +72,9 @@ namespace BeeHiveManagement
         {
             eggs += EGGS_PER_SHIFT;
             foreach (Bee worker in workers)
-                WorkTheNextShift();
+            {
+                worker.WorkTheNextShift();
+            }
             HoneyVault.ConsumeHoney((HONEY_PER_UNASSIGNED_WORKER * unassignedWorkers));
             UpdateStatusReport();
         }

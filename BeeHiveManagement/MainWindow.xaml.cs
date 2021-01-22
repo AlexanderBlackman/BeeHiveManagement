@@ -40,5 +40,11 @@ namespace BeeHiveManagement
             //queen.DoJob();
             reportTextBox.Text = queen.StatusReport;
         }
+
+        private void difficultySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            difficultyNumber.Text = difficultySlider.Value.ToString();
+          //  Bee.Difficulty = (float)difficultySlider.Value;
+        }
     }
 }

@@ -7,6 +7,7 @@ namespace BeeHiveManagement
     class Bee
     {
         public string Job { get; private set; }
+        public static float Difficulty = 0.9f;//Finish NOW!!!
         public virtual float CostPerShift { get; }
         public Bee(string job)
         {
@@ -15,7 +16,7 @@ namespace BeeHiveManagement
 
         public void WorkTheNextShift()
         {
-          if (HoneyVault.ConsumeHoney(CostPerShift))
+          if (HoneyVault.ConsumeHoney(CostPerShift * Difficulty))
             {
                 DoJob();
             }
@@ -63,6 +64,7 @@ namespace BeeHiveManagement
             this.queen = queen;
         }
         private Queen queen;
+        // public override float CostPerShift { get { return 1.35f; } }
         public override float CostPerShift { get { return 1.35f; } }
         public const float CARE_PROGRESS_PER_SHIFT = 0.15f;
 
