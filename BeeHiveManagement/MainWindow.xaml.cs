@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace BeeHiveManagement
 {
@@ -21,10 +22,14 @@ namespace BeeHiveManagement
     public partial class MainWindow : Window
     {
         private Queen queen = new Queen();
+        private DispatcherTimer timer = new DispatcherTimer();
         public MainWindow()
         {   
             InitializeComponent();
             reportTextBox.Text = queen.StatusReport;
+            timer.Tick += Timer_Tick;
+            timer.Interval = TimeSpan.FromSeconds(1.5);
+            timer.Start();
 
         }
 
@@ -45,6 +50,11 @@ namespace BeeHiveManagement
         {
             difficultyNumber.Text = difficultySlider.Value.ToString();
           //  Bee.Difficulty = (float)difficultySlider.Value;
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            nextShiftButton_Click(this, new RoutedEventArgs());
         }
     }
 }
