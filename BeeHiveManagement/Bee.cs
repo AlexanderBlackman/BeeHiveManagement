@@ -4,11 +4,11 @@ using System.Text;
 
 namespace BeeHiveManagement
 {
-    class Bee
+    abstract class Bee: IWorker
     {
         public string Job { get; private set; }
         public static float Difficulty = 0.9f;//Finish NOW!!!
-        public virtual float CostPerShift { get; }
+        abstract public float CostPerShift { get; }
         public Bee(string job)
         {
             Job = job;
@@ -22,7 +22,7 @@ namespace BeeHiveManagement
             }
         }
 
-        public virtual void DoJob() { } //this is overriden by the subclass.
+        abstract public  void DoJob(); //this is overriden by the subclass.
 
 
 
@@ -71,6 +71,29 @@ namespace BeeHiveManagement
         public override void DoJob()
         {
             queen.CareForEggs(CARE_PROGRESS_PER_SHIFT);
+        }
+    }
+
+     class NectarDefender: NectarCollector, IDefend
+    {
+        public void Defend()
+        {
+            Console.WriteLine("Waagh");       
+        }
+    }
+    class HiveDefender: Bee, IDefend
+    {
+        public HiveDefender() : base("Hive Defender") { }
+        public void Defend()
+        {
+            Console.WriteLine("Grrrrgh!");
+        }
+
+        public override float CostPerShift { get { return 1.5f; } }
+
+        public override void DoJob()
+        {
+            throw new NotImplementedException();
         }
     }
 

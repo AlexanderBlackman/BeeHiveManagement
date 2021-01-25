@@ -20,9 +20,9 @@ namespace BeeHiveManagement
         private const float HONEY_PER_UNASSIGNED_WORKER = 0.5f;
         public string StatusReport { get; private set; }
 
-        private Bee[] workers = new Bee[0];
+        private IWorker[] workers = new IWorker[0];
 
-        private void AddWorker(Bee worker)
+        private void AddWorker(IWorker worker)
         {
             if (unassignedWorkers >= 1)
             {
@@ -71,7 +71,7 @@ namespace BeeHiveManagement
         public override void DoJob()
         {
             eggs += EGGS_PER_SHIFT;
-            foreach (Bee worker in workers)
+            foreach (IWorker worker in workers)
             {
                 worker.WorkTheNextShift();
             }
@@ -82,7 +82,7 @@ namespace BeeHiveManagement
         private string WorkerStatus(string job)
         {
             int count = 0;
-            foreach(Bee worker in workers)
+            foreach(IWorker worker in workers)
                 if (worker.Job == job) count++;
             string s = "s";
             if (count == 1)
