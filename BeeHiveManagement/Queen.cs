@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.ComponentModel;
+
 
 namespace BeeHiveManagement
 {
-    class Queen : Bee
+    class Queen : Bee, INotifyPropertyChanged
     {
         public Queen() : base("Queen")
         {
@@ -21,6 +23,14 @@ namespace BeeHiveManagement
         public string StatusReport { get; private set; }
 
         private IWorker[] workers = new IWorker[0];
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new 
+                PropertyChangedEventArgs(name));
+        }
 
         private void AddWorker(IWorker worker)
         {
@@ -57,6 +67,7 @@ namespace BeeHiveManagement
                 $"\nWorkerStatus: {WorkerStatus("Honey Manufacturer")}" +
                 $"\nWorkerStatus: {WorkerStatus("Egg Care")}" +
                 $"\nWorkerTotal: {workers.Length}";
+            OnPropertyChanged("StatusReport");
         }
 
         public void CareForEggs(float eggsToConvert)

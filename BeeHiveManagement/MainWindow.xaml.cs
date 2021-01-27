@@ -21,12 +21,14 @@ namespace BeeHiveManagement
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Queen queen = new Queen();
+        private readonly Queen queen;
+ 
         private DispatcherTimer timer = new DispatcherTimer();
         public MainWindow()
         {   
             InitializeComponent();
-            reportTextBox.Text = queen.StatusReport;
+            queen = Resources["queen"] as Queen;
+        //    reportTextBox.Text = queen.StatusReport;
             timer.Tick += Timer_Tick;
             timer.Interval = TimeSpan.FromSeconds(1.5);
             timer.Start();
@@ -36,14 +38,14 @@ namespace BeeHiveManagement
         private void assignJobButton_Click(object sender, RoutedEventArgs e)
         {
             queen.AssignBee(jobComboBox.Text);
-            reportTextBox.Text = queen.StatusReport;
+  //          reportTextBox.Text = queen.StatusReport;
         }
 
         private void nextShiftButton_Click(object sender, RoutedEventArgs e)
         {
             queen.WorkTheNextShift();
             //queen.DoJob();
-            reportTextBox.Text = queen.StatusReport;
+     //       reportTextBox.Text = queen.StatusReport;
         }
 
         private void difficultySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
